@@ -1,0 +1,2498 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#0a0a0a">
+<title>Caderno do Vendedor Zahil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===========================================================
+   RESET & VARS
+   =========================================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black: #0a0a0a;
+  --black-soft: #1a1a1a;
+  --white: #ffffff;
+  --cream: #f6f3ef;
+  --line: rgba(20,20,20,0.08);
+  --gray-50: #faf9f7;
+  --gray-100: #f3f1ee;
+  --gray-200: #e6e3de;
+  --gray-300: #c9c5bf;
+  --gray-500: #6b6b6b;
+  --gray-600: #4a4a4a;
+  --gray-700: #2c2c2c;
+  --bordeaux: #8b1e2f;
+  --bordeaux-bg: #fdf3f4;
+  --gold: #c2a878;
+  --gold-bg: rgba(194,168,120,0.08);
+  --green: #2d7a4a;
+  --green-bg: #e8f3ec;
+  --blue: #2563a8;
+  --blue-bg: #eaf1f8;
+  --orange: #c47b1f;
+  --orange-bg: #fcf3e6;
+  --purple: #6b3a8a;
+  --purple-bg: #f1ebf6;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Inter', -apple-system, sans-serif;
+  --radius: 12px;
+  --radius-lg: 18px;
+  --t: 240ms cubic-bezier(.4,0,.2,1);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow: 0 4px 14px rgba(0,0,0,0.06);
+  --shadow-lg: 0 14px 40px rgba(0,0,0,0.08);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  color: var(--gray-700);
+  background: var(--cream);
+  line-height: 1.6;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+input, textarea { font-family: inherit; }
+
+/* ===========================================================
+   HEADER
+   =========================================================== */
+.header {
+  position: sticky;
+  top: 0;
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+  z-index: 100;
+  padding: 14px 24px;
+}
+.header__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.header__back {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-700);
+  transition: all var(--t);
+  flex-shrink: 0;
+}
+.header__back:hover { background: var(--gray-100); color: var(--black); }
+.header__back.hidden { display: none; }
+
+.header__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.header__brand img { height: 28px; }
+.header__brand-text {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--black);
+}
+.header__brand-text small {
+  display: block;
+  font-family: var(--sans);
+  font-size: 9.5px;
+  letter-spacing: 2px;
+  font-weight: 600;
+  color: var(--gray-500);
+  margin-top: 3px;
+}
+
+.header__title {
+  flex: 1;
+  font-family: var(--serif);
+  font-size: 19px;
+  color: var(--black);
+  font-weight: 500;
+  margin-left: 4px;
+}
+
+/* ===========================================================
+   MAIN
+   =========================================================== */
+.main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 24px 80px;
+}
+
+.view {
+  display: none;
+  animation: fadeIn 360ms cubic-bezier(.4,0,.2,1);
+}
+.view.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===========================================================
+   HOME — HUB
+   =========================================================== */
+.home-hero {
+  position: relative;
+  background: var(--black);
+  color: var(--cream);
+  border-radius: var(--radius-lg);
+  padding: 36px 32px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+}
+.home-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.4;
+}
+.home-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%);
+}
+.home-hero__content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+.home-hero__eyebrow {
+  font-size: 10.5px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+.home-hero__title {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4.5vw, 38px);
+  font-weight: 500;
+  line-height: 1.15;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+.home-hero__sub {
+  font-size: 15px;
+  color: var(--gray-300);
+  max-width: 480px;
+  line-height: 1.5;
+}
+
+/* Search */
+.search {
+  position: relative;
+  margin-bottom: 28px;
+}
+.search input {
+  width: 100%;
+  padding: 16px 20px 16px 52px;
+  border: 1px solid var(--gray-200);
+  background: var(--white);
+  border-radius: 999px;
+  font-size: 15px;
+  color: var(--gray-700);
+  transition: all var(--t);
+  box-shadow: var(--shadow-sm);
+}
+.search input:focus {
+  outline: none;
+  border-color: var(--gray-300);
+  box-shadow: 0 0 0 4px rgba(20,20,20,0.04), var(--shadow);
+}
+.search svg {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray-500);
+}
+
+/* Hub cards */
+.hub-section-title {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  font-weight: 600;
+  margin: 30px 0 14px;
+}
+.hub-section-title:first-of-type { margin-top: 0; }
+
+.hub-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.hub-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 22px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all var(--t);
+  text-align: left;
+  width: 100%;
+  position: relative;
+}
+.hub-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--gray-300);
+}
+.hub-card__icon {
+  flex-shrink: 0;
+  width: 46px; height: 46px;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gray-100);
+  color: var(--gray-700);
+}
+.hub-card__icon svg { width: 22px; height: 22px; }
+.hub-card__body { flex: 1; min-width: 0; }
+.hub-card__title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--black);
+  margin-bottom: 2px;
+  line-height: 1.2;
+}
+.hub-card__desc {
+  font-size: 13px;
+  color: var(--gray-500);
+  line-height: 1.4;
+}
+.hub-card__arrow {
+  flex-shrink: 0;
+  color: var(--gray-300);
+  transition: all var(--t);
+}
+.hub-card:hover .hub-card__arrow {
+  color: var(--gray-700);
+  transform: translateX(3px);
+}
+
+/* DESTAQUE: Objeções */
+.hub-card--featured {
+  background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+  color: var(--white);
+  border-color: var(--black);
+  grid-column: 1 / -1;
+  padding: 28px;
+  align-items: center;
+  gap: 22px;
+}
+.hub-card--featured .hub-card__icon {
+  width: 56px; height: 56px;
+  background: rgba(194,168,120,0.18);
+  color: var(--gold);
+}
+.hub-card--featured .hub-card__icon svg { width: 28px; height: 28px; }
+.hub-card--featured .hub-card__title {
+  color: var(--white);
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 500;
+}
+.hub-card--featured .hub-card__desc {
+  color: var(--gray-300);
+  font-size: 14px;
+  margin-top: 4px;
+}
+.hub-card--featured .hub-card__arrow { color: var(--gold); }
+.hub-card--featured:hover {
+  border-color: var(--gold);
+  box-shadow: 0 14px 50px rgba(0,0,0,0.25);
+}
+
+/* DESTAQUE: Campanha 40 anos */
+.hub-card--campaign {
+  background: linear-gradient(135deg, #fdf6e8 0%, #f7ecd1 100%);
+  border-color: var(--gold);
+  border-width: 1px;
+  grid-column: 1 / -1;
+  padding: 24px 26px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.hub-card--campaign::before {
+  content: '40';
+  position: absolute;
+  right: -24px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--serif);
+  font-size: 180px;
+  font-weight: 500;
+  color: rgba(194,168,120,0.18);
+  line-height: 1;
+  pointer-events: none;
+}
+.hub-card--campaign > * { position: relative; z-index: 1; }
+.hub-card--campaign .hub-card__icon {
+  background: var(--bordeaux);
+  color: var(--white);
+  width: 50px; height: 50px;
+}
+.hub-card--campaign .hub-card__title {
+  color: var(--bordeaux);
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+}
+.hub-card--campaign .hub-card__desc { color: var(--gray-700); font-size: 13.5px; margin-top: 2px; }
+.hub-card--campaign .hub-card__arrow { color: var(--bordeaux); }
+.hub-card--campaign:hover {
+  border-color: var(--bordeaux);
+  box-shadow: 0 14px 40px rgba(139,30,47,0.15);
+  transform: translateY(-2px);
+}
+
+/* Footer link */
+.home-footer {
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+.home-footer p {
+  font-size: 13px;
+  color: var(--gray-500);
+  margin-bottom: 4px;
+}
+.home-footer a {
+  font-size: 14px;
+  color: var(--bordeaux);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ===========================================================
+   VIEW PAGE TITLE
+   =========================================================== */
+.view-title {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4vw, 36px);
+  color: var(--black);
+  font-weight: 500;
+  margin-bottom: 8px;
+  line-height: 1.15;
+}
+.view-sub {
+  font-size: 15px;
+  color: var(--gray-500);
+  margin-bottom: 28px;
+  max-width: 600px;
+  line-height: 1.55;
+}
+
+/* ===========================================================
+   OBJEÇÕES
+   =========================================================== */
+.filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+}
+.filters::-webkit-scrollbar { display: none; }
+
+.filter-chip {
+  padding: 8px 16px;
+  border: 1px solid var(--gray-200);
+  background: var(--white);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gray-600);
+  white-space: nowrap;
+  transition: all var(--t);
+  flex-shrink: 0;
+}
+.filter-chip:hover { border-color: var(--gray-300); }
+.filter-chip.active {
+  background: var(--black);
+  color: var(--white);
+  border-color: var(--black);
+}
+.filter-chip__count {
+  margin-left: 6px;
+  opacity: 0.6;
+  font-size: 11.5px;
+}
+
+.objection-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.objection {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: all var(--t);
+}
+.objection:hover { border-color: var(--gray-300); }
+.objection.open { box-shadow: var(--shadow); border-color: var(--gray-300); }
+
+.objection__header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: background var(--t);
+}
+.objection__header:hover { background: var(--gray-50); }
+
+.objection__tag {
+  flex-shrink: 0;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+.tag--preco { background: var(--bordeaux-bg); color: var(--bordeaux); }
+.tag--tempo { background: var(--blue-bg); color: var(--blue); }
+.tag--concorrencia { background: var(--orange-bg); color: var(--orange); }
+.tag--postura { background: var(--purple-bg); color: var(--purple); }
+.tag--logistica { background: var(--green-bg); color: var(--green); }
+.tag--silencio { background: var(--gray-100); color: var(--gray-600); }
+.tag--duvida { background: #e8f0ef; color: #3d6b6d; }
+
+.objection__quote {
+  flex: 1;
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--black);
+  line-height: 1.3;
+}
+.objection__quote::before {
+  content: '“';
+  color: var(--gray-300);
+  font-size: 22px;
+  margin-right: 4px;
+}
+.objection__quote::after {
+  content: '”';
+  color: var(--gray-300);
+  font-size: 22px;
+  margin-left: 4px;
+}
+
+.objection__chevron {
+  flex-shrink: 0;
+  color: var(--gray-500);
+  transition: transform var(--t);
+}
+.objection.open .objection__chevron { transform: rotate(180deg); }
+
+.objection__body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 320ms cubic-bezier(.4,0,.2,1);
+}
+.objection.open .objection__body { max-height: 600px; }
+
+.objection__body-inner {
+  padding: 0 20px 20px;
+  border-top: 1px solid var(--line);
+}
+.objection__label {
+  font-size: 10.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  font-weight: 600;
+  margin: 16px 0 10px;
+}
+.objection__response {
+  background: var(--gray-50);
+  border-left: 3px solid var(--gold);
+  padding: 16px 18px;
+  border-radius: 0 8px 8px 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--gray-700);
+  font-style: italic;
+}
+.objection__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.btn-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--gray-700);
+  border: 1px solid var(--gray-200);
+  transition: all var(--t);
+}
+.btn-action:hover {
+  background: var(--black);
+  color: var(--white);
+  border-color: var(--black);
+}
+.btn-action.copied {
+  background: var(--green);
+  color: var(--white);
+  border-color: var(--green);
+}
+
+.empty-state {
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--gray-500);
+}
+.empty-state svg { color: var(--gray-300); margin-bottom: 14px; }
+
+/* ===========================================================
+   MENSAGENS
+   =========================================================== */
+.tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--gray-200);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.tabs::-webkit-scrollbar { display: none; }
+
+.tab {
+  padding: 12px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gray-500);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all var(--t);
+  white-space: nowrap;
+}
+.tab:hover { color: var(--gray-700); }
+.tab.active {
+  color: var(--black);
+  border-bottom-color: var(--black);
+  font-weight: 600;
+}
+
+.message-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.message-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.message-card__title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-500);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.message-card__body {
+  font-family: var(--serif);
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--gray-700);
+  white-space: pre-line;
+}
+.message-card__body .var-name { color: var(--blue); font-style: italic; font-weight: 500; }
+.message-card__body .var-reason { color: var(--orange); font-style: italic; font-weight: 500; }
+.message-card__body .var-product { color: var(--bordeaux); font-style: italic; font-weight: 500; }
+
+.legend {
+  background: var(--gray-50);
+  padding: 14px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 20px;
+  border: 1px solid var(--line);
+}
+.legend p { margin-bottom: 4px; }
+.legend p:last-child { margin-bottom: 0; }
+.legend strong.var-name { color: var(--blue); }
+.legend strong.var-reason { color: var(--orange); }
+.legend strong.var-product { color: var(--bordeaux); }
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ===========================================================
+   SONDAGEM
+   =========================================================== */
+.questions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.question {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  transition: all var(--t);
+}
+.question:hover { box-shadow: var(--shadow); border-color: var(--gray-300); }
+.question__num {
+  flex-shrink: 0;
+  width: 36px; height: 36px;
+  background: var(--black);
+  color: var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 16px;
+}
+.question__body { flex: 1; }
+.question__text {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--black);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+.question__why {
+  font-size: 13.5px;
+  color: var(--gray-500);
+  line-height: 1.5;
+}
+.question__why strong { color: var(--gray-700); font-weight: 600; }
+
+/* ===========================================================
+   MÉTODO
+   =========================================================== */
+.steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.step-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: all var(--t);
+}
+.step-card:hover { border-color: var(--gray-300); }
+.step-card.open { box-shadow: var(--shadow); }
+
+.step-card__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 22px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+.step-card__header:hover { background: var(--gray-50); }
+.step-card__num {
+  flex-shrink: 0;
+  font-family: var(--serif);
+  font-size: 28px;
+  color: var(--gold);
+  font-weight: 500;
+  line-height: 1;
+  width: 40px;
+}
+.step-card__title {
+  flex: 1;
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 500;
+  color: var(--black);
+}
+.step-card__chevron {
+  color: var(--gray-500);
+  transition: transform var(--t);
+}
+.step-card.open .step-card__chevron { transform: rotate(180deg); }
+.step-card__body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 320ms cubic-bezier(.4,0,.2,1);
+}
+.step-card.open .step-card__body { max-height: 800px; }
+.step-card__body-inner {
+  padding: 0 22px 22px 78px;
+  font-size: 14.5px;
+  color: var(--gray-600);
+  line-height: 1.65;
+}
+.step-card__body-inner p { margin-bottom: 12px; }
+.step-card__body-inner p:last-child { margin-bottom: 0; }
+.step-card__body-inner strong { color: var(--black); }
+
+/* ===========================================================
+   VINHOS
+   =========================================================== */
+.guide-section { margin-bottom: 32px; }
+.guide-section__title {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.guide-section h3 {
+  font-family: var(--serif);
+  font-size: 22px;
+  color: var(--black);
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+.guide-section p {
+  font-size: 14.5px;
+  color: var(--gray-600);
+  line-height: 1.65;
+  margin-bottom: 14px;
+}
+
+.wine-types {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.wine-chip {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px 16px;
+  text-align: center;
+}
+.wine-chip__dot {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  margin: 0 auto 12px;
+}
+.wine-chip--tinto .wine-chip__dot { background: #5b1e2a; }
+.wine-chip--branco .wine-chip__dot { background: #e6dba8; border: 1px solid #c5b88a; }
+.wine-chip--rose .wine-chip__dot { background: #e2a3ad; }
+.wine-chip h4 {
+  font-family: var(--serif);
+  font-size: 17px;
+  color: var(--black);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.wine-chip p { font-size: 12px; color: var(--gray-500); margin: 0; line-height: 1.4; }
+
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.compare-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+}
+.compare-card h4 {
+  font-family: var(--serif);
+  font-size: 18px;
+  color: var(--black);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.compare-card__sub {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.compare-card p { font-size: 13.5px; color: var(--gray-600); margin: 0; line-height: 1.55; }
+
+.styles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.style-item {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px 18px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+.style-item__num {
+  flex-shrink: 0;
+  font-family: var(--serif);
+  font-size: 22px;
+  color: var(--gold);
+  font-weight: 500;
+  width: 28px;
+}
+.style-item__body { flex: 1; }
+.style-item__title {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--black);
+  margin-bottom: 2px;
+}
+.style-item__desc { font-size: 13px; color: var(--gray-500); margin: 0; }
+
+/* ===========================================================
+   COMISSÕES
+   =========================================================== */
+.info-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 16px;
+}
+.info-card h3 {
+  font-family: var(--serif);
+  font-size: 19px;
+  color: var(--black);
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+.info-card p { font-size: 14.5px; color: var(--gray-600); line-height: 1.65; margin-bottom: 12px; }
+.info-card ul { padding-left: 20px; margin: 0; }
+.info-card li { font-size: 14px; color: var(--gray-600); margin-bottom: 6px; line-height: 1.55; }
+.info-card strong { color: var(--black); }
+
+.comm-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+}
+.comm-table th {
+  background: var(--gray-100);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  font-weight: 700;
+  padding: 12px 14px;
+  text-align: left;
+}
+.comm-table td {
+  padding: 14px;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--gray-700);
+}
+.comm-table td:first-child {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--black);
+}
+.comm-table tr:last-child td { border-bottom: none; }
+
+.tomador {
+  background: var(--gray-50);
+  border-left: 3px solid var(--gold);
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.tomador strong { color: var(--black); }
+
+/* ===========================================================
+   CAMPANHA 40 ANOS
+   =========================================================== */
+.campaign-banner {
+  background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+  color: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 36px 32px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.campaign-banner::before {
+  content: '40';
+  position: absolute;
+  right: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--serif);
+  font-size: 320px;
+  font-weight: 500;
+  color: rgba(194,168,120,0.08);
+  line-height: 0.85;
+  letter-spacing: -10px;
+  pointer-events: none;
+}
+.campaign-banner > * { position: relative; z-index: 1; }
+.campaign-banner__eyebrow {
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.campaign-banner__title {
+  font-family: var(--serif);
+  font-size: clamp(30px, 4.5vw, 42px);
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: 14px;
+  max-width: 540px;
+}
+.campaign-banner__title strong {
+  color: var(--gold);
+  font-weight: 600;
+}
+.campaign-banner__sub {
+  color: var(--gray-300);
+  font-size: 15px;
+  max-width: 520px;
+  line-height: 1.55;
+  margin-bottom: 20px;
+}
+.campaign-banner__meta {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+.campaign-banner__meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.campaign-banner__meta-label {
+  font-size: 10.5px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray-300);
+  font-weight: 600;
+}
+.campaign-banner__meta-value {
+  font-family: var(--serif);
+  font-size: 18px;
+  color: var(--white);
+  font-weight: 500;
+}
+
+.rules-card {
+  background: var(--gold-bg);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+  padding: 18px 22px;
+  margin: 24px 0;
+}
+.rules-card h4 {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.rules-card p { font-size: 13.5px; color: var(--gray-700); margin: 0 0 6px; line-height: 1.55; }
+.rules-card p:last-child { margin-bottom: 0; }
+.rules-card strong { color: var(--black); }
+
+/* ===========================================================
+   DICAS DE VENDA
+   =========================================================== */
+.tip-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: all var(--t);
+  margin-bottom: 10px;
+}
+.tip-card:hover { border-color: var(--gray-300); }
+.tip-card.open { box-shadow: var(--shadow); }
+
+.tip-card__header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 22px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+.tip-card__header:hover { background: var(--gray-50); }
+.tip-card__num {
+  flex-shrink: 0;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--gold-bg);
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 15px;
+}
+.tip-card.open .tip-card__num { background: var(--gold); color: var(--white); }
+
+.tip-card__body-wrap {
+  flex: 1;
+  min-width: 0;
+}
+.tip-card__title {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--black);
+  line-height: 1.25;
+  margin-bottom: 2px;
+}
+.tip-card__sub {
+  font-size: 13px;
+  color: var(--gray-500);
+  line-height: 1.4;
+}
+.tip-card__chevron {
+  flex-shrink: 0;
+  color: var(--gray-500);
+  transition: transform var(--t);
+}
+.tip-card.open .tip-card__chevron { transform: rotate(180deg); }
+
+.tip-card__body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 360ms cubic-bezier(.4,0,.2,1);
+}
+.tip-card.open .tip-card__body { max-height: 1000px; }
+
+.tip-card__body-inner {
+  padding: 0 22px 22px 70px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--gray-600);
+  border-top: 1px solid var(--line);
+  margin-top: 0;
+  padding-top: 18px;
+}
+.tip-card__body-inner p { margin-bottom: 10px; }
+.tip-card__body-inner p:last-child { margin-bottom: 0; }
+.tip-card__body-inner strong { color: var(--black); }
+.tip-card__body-inner ul { margin: 8px 0 12px; padding-left: 18px; }
+.tip-card__body-inner li { margin-bottom: 6px; }
+.tip-card__body-inner em {
+  display: block;
+  background: var(--gray-50);
+  padding: 10px 14px;
+  border-left: 2px solid var(--gold);
+  font-style: italic;
+  font-size: 13.5px;
+  color: var(--gray-600);
+  margin: 8px 0;
+  border-radius: 0 6px 6px 0;
+}
+
+@media (max-width: 640px) {
+  .campaign-banner { padding: 26px 22px; }
+  .campaign-banner::before { font-size: 220px; right: -30px; }
+  .tip-card__body-inner { padding: 18px 18px 18px 22px; }
+  .tip-card__header { padding: 14px 16px; }
+}
+
+/* ===========================================================
+   TOAST (feedback de cópia)
+   =========================================================== */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--black);
+  color: var(--white);
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 1000;
+  transition: transform var(--t);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+  pointer-events: none;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast svg { color: var(--gold); }
+
+/* ===========================================================
+   RESPONSIVE
+   =========================================================== */
+@media (max-width: 640px) {
+  .header { padding: 12px 16px; }
+  .main { padding: 20px 16px 80px; }
+  .home-hero { padding: 28px 22px; min-height: 170px; }
+  .hub-grid { grid-template-columns: 1fr; }
+  .hub-card { padding: 18px; }
+  .hub-card--featured { padding: 22px; }
+  .objection__header { padding: 14px 16px; gap: 10px; flex-wrap: wrap; }
+  .objection__quote { font-size: 16px; flex: 1 1 100%; order: 3; margin-top: 4px; }
+  .objection__body-inner { padding: 0 16px 18px; }
+  .compare-grid { grid-template-columns: 1fr; }
+  .wine-types { grid-template-columns: 1fr; }
+  .message-card { padding: 18px; }
+  .info-card { padding: 18px; }
+  .comm-table { font-size: 13px; }
+  .comm-table th, .comm-table td { padding: 10px 8px; }
+  .header__brand-text { display: none; }
+  .header__title { font-size: 17px; }
+  .step-card__body-inner { padding: 0 18px 18px 62px; }
+  .question { padding: 18px; gap: 14px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header class="header">
+  <div class="header__inner">
+    <button class="header__back hidden" id="btnBack" onclick="goHome()" aria-label="Voltar">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="19" y1="12" x2="5" y2="12"/>
+        <polyline points="12 19 5 12 12 5"/>
+      </svg>
+    </button>
+    <div class="header__brand" onclick="goHome()" id="headerBrand">
+      <img id="logoZahil" alt="Zahil">
+      <div class="header__brand-text">
+        Caderno
+        <small>ZAHIL · VENDEDOR</small>
+      </div>
+    </div>
+    <div class="header__title" id="headerTitle" style="display:none;"></div>
+  </div>
+</header>
+
+<!-- ============================================================
+     MAIN
+     ============================================================ -->
+<main class="main">
+
+  <!-- ========================================
+       HOME
+       ======================================== -->
+  <section class="view active" data-view="home">
+    <div class="home-hero" id="homeHero">
+      <div class="home-hero__content">
+        <p class="home-hero__eyebrow">Zahil · 40 anos</p>
+        <h1 class="home-hero__title">O que você precisa,<br>na hora que precisa.</h1>
+        <p class="home-hero__sub">Objeções, mensagens prontas, dicas de venda e a campanha de 40 anos. Tudo num lugar só, fácil de achar.</p>
+      </div>
+    </div>
+
+    <div class="search">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"/>
+        <line x1="20" y1="20" x2="16.5" y2="16.5"/>
+      </svg>
+      <input type="text" placeholder="Buscar objeção, mensagem ou tema..." id="globalSearch">
+    </div>
+
+    <p class="hub-section-title">Acesso rápido</p>
+    <div class="hub-grid">
+      <button class="hub-card hub-card--featured" onclick="goToView('objecoes')">
+        <div class="hub-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 2L4 6v6c0 5 3.5 9.5 8 11 4.5-1.5 8-6 8-11V6l-8-4z"/>
+            <polyline points="9 12 11 14 15 10"/>
+          </svg>
+        </div>
+        <div class="hub-card__body">
+          <div class="hub-card__title">Régua de Objeções</div>
+          <div class="hub-card__desc">"Tá caro", "já compro de outro", "vou pensar"... Cada objeção mapeada — com resposta pronta pra copiar.</div>
+        </div>
+        <svg class="hub-card__arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </button>
+
+      <button class="hub-card hub-card--campaign" onclick="goToView('campanha')">
+        <div class="hub-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M12 2v4M4.93 4.93l2.83 2.83M2 12h4M4.93 19.07l2.83-2.83M12 22v-4M19.07 19.07l-2.83-2.83M22 12h-4M19.07 4.93l-2.83 2.83"/>
+            <circle cx="12" cy="12" r="4"/>
+          </svg>
+        </div>
+        <div class="hub-card__body">
+          <div class="hub-card__title">Campanha 40 Anos</div>
+          <div class="hub-card__desc">40% OFF em 40 rótulos selecionados — válido durante todo o mês de maio. Veja oferta, scripts e regras.</div>
+        </div>
+        <svg class="hub-card__arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </button>
+    </div>
+
+    <p class="hub-section-title">Atendimento</p>
+    <div class="hub-grid">
+      <button class="hub-card" onclick="goToView('mensagens')">
+        <div class="hub-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+          </svg>
+        </div>
+        <div class="hub-card__body">
+          <div class="hub-card__title">Mensagens prontas</div>
+          <div class="hub-card__desc">Modelos pra cada perfil — incluindo a campanha de 40 anos. Copia e envia.</div>
+        </div>
+        <svg class="hub-card__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <button class="hub-card" onclick="goToView('sondagem')">
+        <div class="hub-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </div>
+        <div class="hub-card__body">
+          <div class="hub-card__title">Perguntas pra sondagem</div>
+          <div class="hub-card__desc">Os 5 pontos para entender o que o cliente realmente quer.</div>
+        </div>
+        <svg class="hub-card__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <button class="hub-card" onclick="goToView('metodo')">
+        <div class="hub-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+            <circle cx="6" cy="6" r="1.5" fill="currentColor"/>
+            <circle cx="6" cy="12" r="1.5" fill="currentColor"/>
+            <circle cx="6" cy="18" r="1.5" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="hub-card__body">
+          <div class="hub-card__title">Vender em 6 passos</div>
+          <div class="hub-card__desc">O método: da abordagem ao pós-venda, em ordem.</div>
+        </div>
+        <svg class="hub-card__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+
+    <p class="hub-section-title">Performance</p>
+    <div class="hub-grid">
+      <button class="hub-card" onclick="goToView('dicas')">
+        <div class="hub-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M9 21h6M12 17v4M9 13h6M5.5 11.5l1 1M17.5 12.5l1-1M3 8h2M19 8h2M12 3v3M7 8a5 5 0 0110 0c0 2-1 3-2 4-1 1-1 1-1 3H10c0-2 0-2-1-3-1-1-2-2-2-4z"/>
+          </svg>
+        </div>
+        <div class="hub-card__body">
+          <div class="hub-card__title">Dicas de venda</div>
+          <div class="hub-card__desc">9 técnicas direto do time de incentivo Zahil pra acelerar suas vendas.</div>
+        </div>
+        <svg class="hub-card__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+
+    <p class="hub-section-title">Conhecimento</p>
+    <div class="hub-grid">
+      <button class="hub-card" onclick="goToView('vinhos')">
+        <div class="hub-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M8 2h8M8 2c0 5 1 7 4 8 3-1 4-3 4-8M12 10v10M9 20h6"/>
+          </svg>
+        </div>
+        <div class="hub-card__body">
+          <div class="hub-card__title">Sobre vinhos</div>
+          <div class="hub-card__desc">O básico que você precisa: tipos, estilos, mundos e harmonização.</div>
+        </div>
+        <svg class="hub-card__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <button class="hub-card" onclick="goToView('comissoes')">
+        <div class="hub-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <line x1="12" y1="2" x2="12" y2="22"/>
+            <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+          </svg>
+        </div>
+        <div class="hub-card__body">
+          <div class="hub-card__title">Comissões</div>
+          <div class="hub-card__desc">Como receber, modalidades de NF e dados de emissão.</div>
+        </div>
+        <svg class="hub-card__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ========================================
+       OBJEÇÕES
+       ======================================== -->
+  <section class="view" data-view="objecoes">
+    <h1 class="view-title">Régua de Objeções</h1>
+    <p class="view-sub">Quando o cliente travar, encontre aqui o que dizer. Toque na frase pra ver a resposta — e copie pra mandar direto pelo WhatsApp.</p>
+
+    <div class="search" style="margin-bottom: 14px;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"/>
+        <line x1="20" y1="20" x2="16.5" y2="16.5"/>
+      </svg>
+      <input type="text" placeholder="Buscar por palavra (ex: caro, demora, fornecedor...)" id="objSearch">
+    </div>
+
+    <div class="filters" id="objFilters">
+      <button class="filter-chip active" data-filter="all">Todas <span class="filter-chip__count">11</span></button>
+      <button class="filter-chip" data-filter="silencio">Silêncio</button>
+      <button class="filter-chip" data-filter="postura">Postura</button>
+      <button class="filter-chip" data-filter="duvida">Dúvida</button>
+      <button class="filter-chip" data-filter="preco">Preço</button>
+      <button class="filter-chip" data-filter="logistica">Logística</button>
+      <button class="filter-chip" data-filter="tempo">Prazos</button>
+      <button class="filter-chip" data-filter="concorrencia">Concorrência</button>
+    </div>
+
+    <div class="objection-list" id="objList">
+      <!-- preenchido por JS -->
+    </div>
+  </section>
+
+  <!-- ========================================
+       CAMPANHA 40 ANOS
+       ======================================== -->
+  <section class="view" data-view="campanha">
+    <div class="campaign-banner">
+      <p class="campaign-banner__eyebrow">Maio · Zahil 40 anos</p>
+      <h1 class="campaign-banner__title">
+        <strong>40% off</strong> em <strong>40 rótulos</strong> selecionados pelos especialistas Zahil.
+      </h1>
+      <p class="campaign-banner__sub">Para celebrar 40 anos selecionando vinhos para momentos especiais. Use a campanha como gancho de aproximação, reativação e fechamento durante todo o mês.</p>
+      <div class="campaign-banner__meta">
+        <div class="campaign-banner__meta-item">
+          <span class="campaign-banner__meta-label">Vigência</span>
+          <span class="campaign-banner__meta-value">Maio inteiro</span>
+        </div>
+        <div class="campaign-banner__meta-item">
+          <span class="campaign-banner__meta-label">Desconto</span>
+          <span class="campaign-banner__meta-value">40% OFF</span>
+        </div>
+        <div class="campaign-banner__meta-item">
+          <span class="campaign-banner__meta-label">Rótulos</span>
+          <span class="campaign-banner__meta-value">40 selecionados</span>
+        </div>
+        <div class="campaign-banner__meta-item">
+          <span class="campaign-banner__meta-label">Termina em</span>
+          <span class="campaign-banner__meta-value">30/05/2026</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="rules-card">
+      <h4>Regras importantes</h4>
+      <p>Desconto <strong>não cumulativo</strong> com outras promoções.</p>
+      <p>Válido <strong>até 30/05/2026</strong> ou enquanto durarem os estoques.</p>
+      <p>A condição é em <strong>40 rótulos selecionados</strong> — confira o catálogo virtual com seu gestor pra ver quais estão na campanha.</p>
+    </div>
+
+    <p class="hub-section-title" style="margin-top: 30px;">Mensagem oficial pro aniversariante</p>
+    <p style="font-size: 14px; color: var(--gray-500); margin-bottom: 18px; line-height: 1.55;">Use no mês do aniversário do cliente — combina o aniversário dele com os 40 anos da Zahil.</p>
+
+    <div class="message-card">
+      <div class="message-card__header">
+        <span class="message-card__title">Aniversário do cliente · 40 anos Zahil</span>
+        <button class="btn-action" data-copy="msg-aniv">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          Copiar
+        </button>
+      </div>
+      <div class="message-card__body" id="msg-aniv">Olá <span class="var-name">*|PRIMEIRO_NOME|*</span>, tudo bem? 🍷
+Este mês é muito especial: é o mês do seu aniversário e, também da Zahil.
+Estamos celebrando *40 anos* selecionando vinhos para momentos especiais.
+E para brindar essa data, você está recebendo em primeira mão uma condição exclusiva:
+*40% de desconto em 40 rótulos selecionados* pelos nossos especialistas.
+Estou disponibilizando antes para você essa campanha, por conta do seu aniversário.
+No catálogo virtual abaixo você pode conferir os vinhos nessa condição especial.
+Se preferir posso montar para você uma seleção de acordo com seu perfil. É só me mandar uma mensagem.
+Aproveite que é por tempo limitado.
+*Desconto não cumulativo. Válido até 30/05/2026 ou enquanto durarem os estoques.*</div>
+    </div>
+
+    <div style="background: var(--gold-bg); border-left: 3px solid var(--gold); padding: 18px 22px; border-radius: 0 8px 8px 0; margin-top: 24px;">
+      <p style="font-size: 14px; color: var(--gray-700); margin: 0;"><strong style="color: var(--black);">Dica:</strong> os scripts de Família, Vizinhos, Conhecidos, Fechamento e Pós-venda em <strong>Mensagens prontas</strong> já estão atualizados com a campanha. Cada um aborda a oferta de um ângulo diferente — escolha o que combina com cada perfil de cliente.</p>
+    </div>
+  </section>
+
+  <!-- ========================================
+       DICAS DE VENDA
+       ======================================== -->
+  <section class="view" data-view="dicas">
+    <h1 class="view-title">Dicas de venda</h1>
+    <p class="view-sub">9 técnicas direto da Campanha de Incentivo Zahil. Toque pra ver os detalhes — use o que mais fizer sentido pro seu dia a dia.</p>
+
+    <div class="steps-list" id="tipsList">
+      <div class="tip-card">
+        <button class="tip-card__header">
+          <div class="tip-card__num">01</div>
+          <div class="tip-card__body-wrap">
+            <div class="tip-card__title">9 técnicas avançadas para alcançar a meta</div>
+            <div class="tip-card__sub">Métodos comprovados pra transformar sua carteira atual em mais vendas.</div>
+          </div>
+          <svg class="tip-card__chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="tip-card__body"><div class="tip-card__body-inner">
+          <p><strong>1. Pareto estratégico:</strong> 80% dos seus resultados vêm de 20% dos clientes. Identifique quem compra recorrentemente e fortaleça essa relação.</p>
+          <p><strong>2. Oferta direcionada por perfil:</strong> agrupe seus clientes e ofereça o que faz sentido pra cada um. Quem curte vinho potente reage diferente de quem busca vinho clássico.</p>
+          <p><strong>3. Estratégia do não-vendido:</strong> revisite propostas dos últimos 60 dias que não fecharam. Volte com nova condição.</p>
+          <p><strong>4. Follow-up em camadas:</strong> combine canais — WhatsApp + e-mail + ligação. Sem ser invasivo.</p>
+          <p><strong>5. Fechamento antecipado:</strong> ofereça condição com prazo curto pra clientes em fase final.</p>
+          <p><em>"Negociei internamente uma condição especial pra você se fecharmos até sexta. Podemos seguir?"</em></p>
+          <p><strong>6. Storytelling:</strong> use casos reais de clientes que se deram bem com determinado vinho.</p>
+          <p><strong>7. Pós-venda ativo:</strong> volta no cliente que já comprou pra entender o que funcionou.</p>
+          <p><strong>8. Antecipe objeções:</strong> liste as recorrentes e prepare argumento pra cada uma.</p>
+          <p><strong>9. Cross-sell:</strong> ofereça vinhos complementares ou edições limitadas pra quem já é cliente.</p>
+        </div></div>
+      </div>
+
+      <div class="tip-card">
+        <button class="tip-card__header">
+          <div class="tip-card__num">02</div>
+          <div class="tip-card__body-wrap">
+            <div class="tip-card__title">Descubra o que seu cliente NÃO quer</div>
+            <div class="tip-card__sub">Vire consultor: pergunte primeiro o que ele quer evitar.</div>
+          </div>
+          <svg class="tip-card__chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="tip-card__body"><div class="tip-card__body-inner">
+          <p>Em vez de listar 100 benefícios do produto, vire o jogo: <strong>pergunte o que ele NÃO quer</strong>. Isso te coloca como consultor, não como vendedor empurrando algo.</p>
+          <p>Por que funciona: é mais fácil pro cliente identificar o que quer evitar do que articular exatamente o que busca.</p>
+          <p><strong>Exemplos pra usar:</strong></p>
+          <ul>
+            <li>"O que você gostaria de evitar ao escolher esse vinho?"</li>
+            <li>"Tem algum estilo ou país que você prefere não explorar?"</li>
+          </ul>
+          <p>Quando você entende as <strong>dores antes da solução</strong>, sua oferta encaixa exatamente onde importa. Demonstre que aquilo que ele teme não vai acontecer — aí apresenta o vinho.</p>
+        </div></div>
+      </div>
+
+      <div class="tip-card">
+        <button class="tip-card__header">
+          <div class="tip-card__num">03</div>
+          <div class="tip-card__body-wrap">
+            <div class="tip-card__title">Transforme seu cliente no seu melhor vendedor</div>
+            <div class="tip-card__sub">Cliente satisfeito tem 50% mais chance de voltar — e ainda indica.</div>
+          </div>
+          <svg class="tip-card__chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="tip-card__body"><div class="tip-card__body-inner">
+          <p>3 jeitos de transformar quem já comprou em promotor da Zahil:</p>
+          <p><strong>1. Supere a expectativa:</strong> não entregue só o vinho. Entregue uma experiência. Por que ele indicaria esse rótulo pra alguém? Pense no detalhe que vai surpreender.</p>
+          <p><strong>2. Use o pós-venda pra criar proximidade:</strong> ligue pra saber se foi bom. <em>"Como foi o jantar com o vinho que você levou?"</em></p>
+          <p><strong>3. Valorize com ofertas exclusivas:</strong></p>
+          <p><em>"Olá [nome]! Como você é cliente importante, recebi uma condição especial e pensei em te avisar antes de abrir pra outros."</em></p>
+          <p>Brindes ou acessórios personalizados também criam vínculo emocional com o produto e com a marca.</p>
+        </div></div>
+      </div>
+
+      <div class="tip-card">
+        <button class="tip-card__header">
+          <div class="tip-card__num">04</div>
+          <div class="tip-card__body-wrap">
+            <div class="tip-card__title">4 técnicas de fechamento</div>
+            <div class="tip-card__sub">Pra quando o cliente está quase, mas ainda hesita.</div>
+          </div>
+          <svg class="tip-card__chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="tip-card__body"><div class="tip-card__body-inner">
+          <p><strong>1. Captação de compromisso</strong> — quando você já contornou várias objeções e ele ainda hesita.</p>
+          <p><em>"Se ajustarmos ao valor que você busca, podemos finalizar agora?"</em></p>
+          <p><strong>2. Encaminhamento por contrapartida</strong> — quando ele dá sinais claros de interesse (perguntas detalhadas, manuseia o produto).</p>
+          <p><em>"Notei que [característica X] é importante pra você. Se eu garantir isso, fechamos hoje?"</em></p>
+          <p><strong>3. Apropriação da linha de raciocínio</strong> — quando ele expressa um desejo ou urgência específica.</p>
+          <p><em>"Conforme você mencionou que precisa até [data], se a Zahil garantir essa entrega, podemos fechar hoje?"</em></p>
+          <p><strong>4. Encaminhamento por concessão</strong> — quando ele pede algo extra que você consegue conceder.</p>
+          <p><em>"Vou verificar essa possibilidade extra. Sendo viável, fechamos negócio hoje?"</em></p>
+        </div></div>
+      </div>
+
+      <div class="tip-card">
+        <button class="tip-card__header">
+          <div class="tip-card__num">05</div>
+          <div class="tip-card__body-wrap">
+            <div class="tip-card__title">Entenda a necessidade antes de oferecer</div>
+            <div class="tip-card__sub">Escutar mais que falar é a habilidade que separa quem vende de quem encaixa.</div>
+          </div>
+          <svg class="tip-card__chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="tip-card__body"><div class="tip-card__body-inner">
+          <p>Cada cliente é único. Um valoriza rapidez na entrega, outro busca um produtor específico, outro quer melhor preço. Sua missão é se conectar à <strong>necessidade específica</strong> de cada um.</p>
+          <p>Não basta conhecer o portfólio — é preciso saber <strong>qual produto resolve qual problema</strong>. Quando você entende isso de verdade, estabelece conexão genuína. Confiança vira venda recorrente.</p>
+          <p>Faça <strong>perguntas estratégicas</strong> e escute as entrelinhas. O cliente costuma revelar o que precisa de forma sutil — uma boa escuta cria espaço de confiança.</p>
+        </div></div>
+      </div>
+
+      <div class="tip-card">
+        <button class="tip-card__header">
+          <div class="tip-card__num">06</div>
+          <div class="tip-card__body-wrap">
+            <div class="tip-card__title">Degustar é preciso</div>
+            <div class="tip-card__sub">A experiência presencial é o fator decisivo de conversão e fidelização.</div>
+          </div>
+          <svg class="tip-card__chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="tip-card__body"><div class="tip-card__body-inner">
+          <p>Provar um vinho é sentir a essência, despertar emoções, criar memória. Isso multiplica a percepção de valor e a chance de fechamento.</p>
+          <p><strong>Como organizar uma degustação que vende:</strong></p>
+          <ul>
+            <li><strong>Prepare o ambiente</strong> — não precisa ser nada enorme. Um momento bem organizado já transmite a experiência.</li>
+            <li><strong>Foco nos vinhos da campanha</strong> — durante os 40 anos, use os 40 rótulos selecionados como ponto de partida.</li>
+            <li><strong>Conte história</strong> — origem do vinho, vinhedo, o que torna aquele rótulo único. Storytelling vende.</li>
+            <li><strong>Feche com profissionalismo</strong> — termine apresentando as condições comerciais e sugerindo um pedido inicial.</li>
+          </ul>
+          <p>Degustar é o melhor jeito de transformar intenção em decisão.</p>
+        </div></div>
+      </div>
+
+      <div class="tip-card">
+        <button class="tip-card__header">
+          <div class="tip-card__num">07</div>
+          <div class="tip-card__body-wrap">
+            <div class="tip-card__title">Os 3 pilares: ambição, técnica, inteligência emocional</div>
+            <div class="tip-card__sub">Venda não é sorte. É método.</div>
+          </div>
+          <svg class="tip-card__chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="tip-card__body"><div class="tip-card__body-inner">
+          <p><strong>1. Ambição</strong> — é seu combustível. Crie metas diárias simples ("fazer 10 prospecções", "fechar 1 venda na semana com vinhos da campanha"). Pequenas conquistas alimentam a vontade de continuar.</p>
+          <p><strong>2. Técnica</strong> — é sua base. Estude o portfólio: regiões, enólogos, harmonizações, histórias. Quem domina o produto fala com segurança.</p>
+          <p><strong>3. Inteligência emocional</strong> — é o que fideliza. Escute mais que fale. Administre os "nãos" com sabedoria — todo "não" hoje pode ser venda amanhã. Saiba aguardar o timing certo do cliente.</p>
+          <p>Com os três pilares trabalhados, não tem limite pro que você pode alcançar.</p>
+        </div></div>
+      </div>
+
+      <div class="tip-card">
+        <button class="tip-card__header">
+          <div class="tip-card__num">08</div>
+          <div class="tip-card__body-wrap">
+            <div class="tip-card__title">Foque nas atividades, a meta é consequência</div>
+            <div class="tip-card__sub">Quebre o objetivo grande em ações diárias controláveis.</div>
+          </div>
+          <svg class="tip-card__chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="tip-card__body"><div class="tip-card__body-inner">
+          <p>Olhar pra meta de longe assusta. O segredo é focar no que você faz <strong>hoje</strong> pra se aproximar dela.</p>
+          <p>Uma meta mensal de 30 vendas é uma venda por dia. Faça a atividade certa repetidas vezes, e a meta se torna acessível.</p>
+          <p><strong>Rotina produtiva exemplo:</strong></p>
+          <ul>
+            <li>Manhã: mensagem pra 10 clientes</li>
+            <li>Antes do almoço: 5 ligações de follow-up</li>
+            <li>Início da tarde: revisar e responder e-mails</li>
+            <li>Fim do dia: 30 minutos pra reativar clientes parados</li>
+          </ul>
+          <p>Cada ligação, cada mensagem conta. Constância é o segredo. Quando você foca no que controla, os resultados vêm naturalmente.</p>
+        </div></div>
+      </div>
+
+      <div class="tip-card">
+        <button class="tip-card__header">
+          <div class="tip-card__num">09</div>
+          <div class="tip-card__body-wrap">
+            <div class="tip-card__title">Follow-up não é tudo, mas é 100%</div>
+            <div class="tip-card__sub">A mágica da venda mora no acompanhamento.</div>
+          </div>
+          <svg class="tip-card__chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="tip-card__body"><div class="tip-card__body-inner">
+          <p>Não basta apresentar o produto. <strong>A venda acontece no acompanhamento.</strong> Estar presente lembra o cliente das oportunidades, constrói confiança e te coloca como primeira opção na hora da decisão.</p>
+          <p><strong>Dicas pra um follow-up que cola:</strong></p>
+          <ul>
+            <li><strong>Seja relevante</strong> — sempre tenha um motivo: nova oferta, curiosidade sobre os vinhos, data comemorativa, material exclusivo.</li>
+            <li><strong>Seja ágil</strong> — respeite o timing dele, mas não demore pra retomar.</li>
+            <li><strong>Personalize</strong> — ninguém gosta de mensagem genérica. Mostre que conhece o cliente.</li>
+            <li><strong>Use o histórico</strong> — referencie conversas anteriores. Demonstra cuidado e atenção.</li>
+          </ul>
+          <p><em>"Olá [nome], conseguiu provar o vinho que conversamos? Está fazendo sucesso entre nossos clientes — quer marcarmos um encontro pra eu te apresentar a seleção?"</em></p>
+        </div></div>
+      </div>
+    </div>
+
+    <div style="background: var(--gold-bg); border-left: 3px solid var(--gold); padding: 18px 22px; border-radius: 0 8px 8px 0; margin-top: 24px;">
+      <p style="font-size: 14px; color: var(--gray-700); margin: 0;"><strong style="color: var(--black);">Bônus:</strong> a cada NÃO você se aproxima do próximo SIM. De cada 10 oportunidades, 9 podem não estar prontas — 1 estará. Persistência é matemática. E lembre: você não vende vinho, entrega experiências e soluções.</p>
+    </div>
+  </section>
+
+  <!-- ========================================
+       MENSAGENS PRONTAS
+       ======================================== -->
+  <section class="view" data-view="mensagens">
+    <h1 class="view-title">Mensagens prontas</h1>
+    <p class="view-sub">Modelos pra abrir conversa com cada perfil de cliente. Copie, ajuste o que está em cores e mande.</p>
+
+    <div class="legend">
+      <p>Onde tem <strong class="var-name">azul</strong> — você personaliza (seu nome, do cliente, etc).</p>
+      <p>Onde tem <strong class="var-reason">laranja</strong> — você adapta o motivo do contato.</p>
+      <p>Onde tem <strong class="var-product">vermelho</strong> — você ajusta o que está oferecendo.</p>
+    </div>
+
+    <div class="tabs" id="msgTabs">
+      <button class="tab active" data-tab="familia">Família & amigos</button>
+      <button class="tab" data-tab="vizinhos">Vizinhos</button>
+      <button class="tab" data-tab="conhecidos">Conhecidos</button>
+      <button class="tab" data-tab="fechamento">Fechamento</button>
+      <button class="tab" data-tab="posvenda">Pós-venda</button>
+    </div>
+
+    <div class="tab-content active" data-tab-content="familia">
+      <div class="message-card">
+        <div class="message-card__header">
+          <span class="message-card__title">Modelo · Família e amigos · 40 anos</span>
+          <button class="btn-action" data-copy="msg-fam">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copiar
+          </button>
+        </div>
+        <div class="message-card__body" id="msg-fam">Olá <span class="var-name">[Família, amigos ou nome]</span>, espero que estejam todos bem! 🍷
+
+<span class="var-reason">Estou começando a trabalhar com vendas de vinho aqui na Zahil e queria muito compartilhar com você</span>. A casa está completando <strong>40 anos selecionando vinhos pra momentos especiais</strong>.
+
+Pra comemorar, estamos com uma campanha exclusiva esse mês: <span class="var-product">40% de desconto em 40 rótulos selecionados pelos nossos especialistas</span>.
+
+Vou te mandar o catálogo. Se quiser, posso até montar uma seleção de acordo com seu perfil — é só me chamar!
+
+A campanha vale durante todo maio (até 30/05 ou enquanto durarem os estoques). Espero brindarmos juntos em breve.
+
+Abraços, <span class="var-name">[seu nome]</span></div>
+      </div>
+    </div>
+
+    <div class="tab-content" data-tab-content="vizinhos">
+      <div class="message-card">
+        <div class="message-card__header">
+          <span class="message-card__title">Modelo · Vizinhos · compra coletiva</span>
+          <button class="btn-action" data-copy="msg-viz">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copiar
+          </button>
+        </div>
+        <div class="message-card__body" id="msg-viz">Caros vizinhos, espero que vocês e seus familiares estejam bem! 🍷
+
+Pra quem ainda não me conhece, sou o <span class="var-name">[nome]</span>, moro <span class="var-name">[no prédio / no bairro]</span>. <span class="var-reason">Trabalho com vendas de vinho pela Zahil — uma das mais respeitadas importadoras do Brasil</span>.
+
+Esse mês a Zahil está comemorando <strong>40 anos</strong> com uma campanha que não dá pra deixar passar: <span class="var-product">40% de desconto em 40 rótulos selecionados</span>.
+
+Pensei em organizar uma <strong>compra coletiva</strong> aqui no <span class="var-name">[prédio/bairro]</span> pra aproveitarmos a oferta — entrego pessoalmente.
+
+Vou disponibilizar o catálogo aqui no grupo. Quem se interessar, é só me chamar no privado!
+
+A campanha vale até 30/05 (ou enquanto durar o estoque).
+
+Abraços, <span class="var-name">[seu nome]</span></div>
+      </div>
+    </div>
+
+    <div class="tab-content" data-tab-content="conhecidos">
+      <div class="message-card">
+        <div class="message-card__header">
+          <span class="message-card__title">Modelo · Conhecidos · reaproximação</span>
+          <button class="btn-action" data-copy="msg-con">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copiar
+          </button>
+        </div>
+        <div class="message-card__body" id="msg-con">Olá <span class="var-name">[nome]</span>, tudo bem? Faz tempo que a gente não conversa — espero que esteja tudo certo aí. 🍷
+
+Aproveito pra te contar uma novidade: <span class="var-reason">agora trabalho com vendas de vinho pela Zahil</span>. E o timing não podia ser melhor: a casa está completando <strong>40 anos</strong> esse mês, com uma campanha especial.
+
+<span class="var-product">40% de desconto em 40 rótulos selecionados pelos especialistas da Zahil</span> — válido só durante maio.
+
+Vou te mandar o catálogo. Se algum chamar atenção, ou se quiser que eu monte uma seleção pro seu perfil, é só me dar um toque.
+
+Se puder repassar pra um amigo que curte vinho, vai me ajudar bastante nesse início. Espero brindarmos juntos em breve.
+
+Abraços, <span class="var-name">[seu nome]</span></div>
+      </div>
+    </div>
+
+    <div class="tab-content" data-tab-content="fechamento">
+      <div class="message-card">
+        <div class="message-card__header">
+          <span class="message-card__title">Quando ele não responde · prazo da campanha</span>
+          <button class="btn-action" data-copy="msg-fec1">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copiar
+          </button>
+        </div>
+        <div class="message-card__body" id="msg-fec1">Oi <span class="var-name">[nome]</span>, tudo bem?! Conseguiu olhar os vinhos que separei pra você?
+
+Só te lembrando que a <strong>campanha de 40 anos da Zahil</strong> — 40% off em 40 rótulos selecionados — vai <strong>até 30/05</strong> ou enquanto durarem os estoques.
+
+Se algum vinho chamou atenção, posso checar se ainda está disponível. Qualquer coisa, é só me chamar! 🍷</div>
+      </div>
+
+      <div class="message-card">
+        <div class="message-card__header">
+          <span class="message-card__title">Quando responde mas não fecha · urgência + parcelamento</span>
+          <button class="btn-action" data-copy="msg-fec2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copiar
+          </button>
+        </div>
+        <div class="message-card__body" id="msg-fec2">Oi <span class="var-name">[nome]</span>, tudo bem? Que bom que gostou da escolha!
+
+Lembrando que a campanha de <strong>40 anos da Zahil</strong> vai até 30/05 (ou enquanto durar o estoque) — então se quiser garantir, vale fechar agora antes que o rótulo saia.
+
+Você pode parcelar em até <strong>3x sem juros</strong> e a entrega sai em até 4 dias úteis.
+
+Vamos fechar?</div>
+      </div>
+    </div>
+
+    <div class="tab-content" data-tab-content="posvenda">
+      <div class="message-card">
+        <div class="message-card__header">
+          <span class="message-card__title">Quinzena após a compra · novos rótulos da campanha</span>
+          <button class="btn-action" data-copy="msg-pos">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copiar
+          </button>
+        </div>
+        <div class="message-card__body" id="msg-pos">Oi <span class="var-name">[nome]</span>, tudo bem? Como foi a semana? Espero que tenha aproveitado os vinhos! 🍷
+
+Algum deles você gostou mais? Pergunto pra deixar a próxima sugestão ainda mais alinhada com seu paladar.
+
+Aproveitando: ainda dá tempo de pegar a <strong>campanha de 40 anos da Zahil</strong> — 40% off em 40 rótulos selecionados, válido até 30/05.
+
+Separei algumas opções com base nas suas últimas escolhas:
+
+<span class="var-product">[Link opção 1]</span>
+<span class="var-product">[Link opção 2]</span>
+
+Qualquer dúvida, é só me chamar!</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       SONDAGEM
+       ======================================== -->
+  <section class="view" data-view="sondagem">
+    <h1 class="view-title">Perguntas pra sondagem</h1>
+    <p class="view-sub">Antes de sugerir qualquer vinho, descubra essas 5 coisas. É a base de toda recomendação que cola.</p>
+
+    <div class="questions">
+      <div class="question">
+        <div class="question__num">1</div>
+        <div class="question__body">
+          <p class="question__text">Tem algum país ou região que você costuma gostar?</p>
+          <p class="question__why"><strong>Por quê:</strong> origem é o atalho mais rápido pra estilo. Quem gosta de Argentina tende a preferir tinto encorpado; quem gosta de Itália, algo mais elegante.</p>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question__num">2</div>
+        <div class="question__body">
+          <p class="question__text">Quais uvas ou tipos de vinho você prefere?</p>
+          <p class="question__why"><strong>Por quê:</strong> Malbec, Cabernet, Chardonnay... cada uva tem perfil próprio. Saber o gosto direto poupa muita tentativa e erro.</p>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question__num">3</div>
+        <div class="question__body">
+          <p class="question__text">Qual a faixa de preço ideal pra esse momento?</p>
+          <p class="question__why"><strong>Por quê:</strong> evita sugerir algo fora do orçamento — e mostra que você respeita o limite dele. Pergunte com naturalidade, sem julgamento.</p>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question__num">4</div>
+        <div class="question__body">
+          <p class="question__text">Pra que ocasião vai servir? (jantar, presente, negócios, relaxar...)</p>
+          <p class="question__why"><strong>Por quê:</strong> a ocasião muda tudo. Vinho de presente é diferente de vinho de almoço de domingo. A escolha tem que combinar com o momento.</p>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question__num">5</div>
+        <div class="question__body">
+          <p class="question__text">Qual o consumo médio mensal?</p>
+          <p class="question__why"><strong>Por quê:</strong> isso te dá frequência de contato e tamanho de carrinho ideal. Quem toma 1 garrafa/semana compra diferente de quem toma 1/mês.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="background: var(--gold-bg); border-left: 3px solid var(--gold); padding: 18px 22px; border-radius: 0 8px 8px 0; margin-top: 24px;">
+      <p style="font-size: 14px; color: var(--gray-700); margin: 0;"><strong style="color: var(--black);">Dica de ouro:</strong> anote as respostas na <strong>Ficha de Consumidor</strong>. Daqui 2 meses, quando for sugerir algo de novo, você vai agradecer ter esse histórico.</p>
+    </div>
+  </section>
+
+  <!-- ========================================
+       MÉTODO
+       ======================================== -->
+  <section class="view" data-view="metodo">
+    <h1 class="view-title">Vender em 6 passos</h1>
+    <p class="view-sub">O método de venda do início ao fim. Toque em cada passo pra ver o que fazer.</p>
+
+    <div class="steps-list" id="stepsList">
+      <div class="step-card">
+        <button class="step-card__header">
+          <span class="step-card__num">01</span>
+          <span class="step-card__title">Envio de mensagem</span>
+          <svg class="step-card__chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="step-card__body"><div class="step-card__body-inner">
+          <p>Abra a conversa de forma natural. Use os modelos prontos como base e adapte ao seu estilo.</p>
+          <p>Comece pelas pessoas mais próximas — quem te conhece tem mais chance de responder. E mesmo quem não bebe vinho pode te indicar a alguém.</p>
+          <p><strong>Dica:</strong> 2 ou 3 emojis bem colocados deixam a mensagem mais leve. Não exagera.</p>
+        </div></div>
+      </div>
+
+      <div class="step-card">
+        <button class="step-card__header">
+          <span class="step-card__num">02</span>
+          <span class="step-card__title">Sondagem</span>
+          <svg class="step-card__chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="step-card__body"><div class="step-card__body-inner">
+          <p>Antes de sugerir, descubra o que ele realmente quer. Use as <strong>5 perguntas-chave</strong>: origem, uvas, faixa de preço, ocasião e consumo médio.</p>
+          <p>É uma conversa, não uma entrevista — encaixe as perguntas com naturalidade.</p>
+          <p>Anote tudo na <strong>Ficha de Consumidor</strong>. Vira ouro mais pra frente.</p>
+        </div></div>
+      </div>
+
+      <div class="step-card">
+        <button class="step-card__header">
+          <span class="step-card__num">03</span>
+          <span class="step-card__title">Recomendação</span>
+          <svg class="step-card__chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="step-card__body"><div class="step-card__body-inner">
+          <p>Com as respostas em mãos, sugira 2 ou 3 vinhos — não dezenas. Conecte sua sugestão à demanda dele com 1 ou 2 frases.</p>
+          <p>Mande sempre a <strong>foto do vinho</strong> ou um card pronto da Adega de Conteúdo. Visual muda tudo.</p>
+          <p>Termine perguntando o que faz mais sentido pra ele.</p>
+        </div></div>
+      </div>
+
+      <div class="step-card">
+        <button class="step-card__header">
+          <span class="step-card__num">04</span>
+          <span class="step-card__title">Régua de objeções</span>
+          <svg class="step-card__chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="step-card__body"><div class="step-card__body-inner">
+          <p>Quando ele travar, não retruca. Concorde primeiro com o que ele falou, depois ofereça uma alternativa que o deixe confortável.</p>
+          <p>As 7 objeções mais comuns estão mapeadas com resposta pronta — toque em <strong>Régua de Objeções</strong> no menu inicial.</p>
+        </div></div>
+      </div>
+
+      <div class="step-card">
+        <button class="step-card__header">
+          <span class="step-card__num">05</span>
+          <span class="step-card__title">Fechamento</span>
+          <svg class="step-card__chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="step-card__body"><div class="step-card__body-inner">
+          <p>Não tenha medo de pedir o pedido. Uma frase como <em>"Vamos fechar?"</em> resolve a maioria dos casos.</p>
+          <p>Se precisar de ajuda no site, mande o passo a passo: COMPRAR → SACOLA → FINALIZAR COMPRA → CADASTRO → PAGAMENTO.</p>
+          <p><strong>Lembre:</strong> 3x sem juros, entrega em até 4 dias úteis em SP.</p>
+        </div></div>
+      </div>
+
+      <div class="step-card">
+        <button class="step-card__header">
+          <span class="step-card__num">06</span>
+          <span class="step-card__title">Pós-venda</span>
+          <svg class="step-card__chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="step-card__body"><div class="step-card__body-inner">
+          <p>Quando o pedido chegar, pergunte se foi tudo bem e o que ele achou dos vinhos. Essa conversa é ouro pra próxima recomendação.</p>
+          <p>A cada 15 dias, mande algo de novo: uma novidade, um conteúdo, uma sugestão baseada no histórico dele.</p>
+          <p>O segredo da venda direta é <strong>recorrência</strong>. Vender uma vez é fácil — vender sempre é o que faz a diferença.</p>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       SOBRE VINHOS
+       ======================================== -->
+  <section class="view" data-view="vinhos">
+    <h1 class="view-title">Sobre vinhos</h1>
+    <p class="view-sub">Você não precisa virar sommelier. Mas saber o básico te dá segurança pra conversar e indicar.</p>
+
+    <div class="guide-section">
+      <p class="guide-section__title">Os três tipos visuais</p>
+      <div class="wine-types">
+        <div class="wine-chip wine-chip--tinto">
+          <div class="wine-chip__dot"></div>
+          <h4>Tinto</h4>
+          <p>Vermelho-arroxeado. Vem de uvas de casca tinta.</p>
+        </div>
+        <div class="wine-chip wine-chip--branco">
+          <div class="wine-chip__dot"></div>
+          <h4>Branco</h4>
+          <p>Translúcido, amarelado. Quase sempre sem contato com a casca.</p>
+        </div>
+        <div class="wine-chip wine-chip--rose">
+          <div class="wine-chip__dot"></div>
+          <h4>Rosado</h4>
+          <p>Rosa a rosa-alaranjado. Casca tinta com pouco contato.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="guide-section">
+      <p class="guide-section__title">Os três estilos</p>
+      <div class="styles-list">
+        <div class="style-item">
+          <div class="style-item__num">01</div>
+          <div class="style-item__body">
+            <p class="style-item__title">Espumantes</p>
+            <p class="style-item__desc">Têm gás suficiente pra formar espuma. Champagne e Prosecco são os clássicos.</p>
+          </div>
+        </div>
+        <div class="style-item">
+          <div class="style-item__num">02</div>
+          <div class="style-item__body">
+            <p class="style-item__title">Tranquilos</p>
+            <p class="style-item__desc">Sem gás. É a maioria dos vinhos produzidos e consumidos no mundo.</p>
+          </div>
+        </div>
+        <div class="style-item">
+          <div class="style-item__num">03</div>
+          <div class="style-item__body">
+            <p class="style-item__title">Fortificados</p>
+            <p class="style-item__desc">Recebem adição de destilado neutro de uvas. Vinho do Porto e Jerez.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="guide-section">
+      <p class="guide-section__title">Velho mundo & Novo mundo</p>
+      <div class="compare-grid">
+        <div class="compare-card">
+          <p class="compare-card__sub">Tradição</p>
+          <h4>Velho Mundo</h4>
+          <p>Itália, França, Portugal, Espanha. Cultura longa. Nomes complicados, etiquetas discretas, sabores onde a fruta às vezes fica em segundo plano.</p>
+        </div>
+        <div class="compare-card">
+          <p class="compare-card__sub">Modernidade</p>
+          <h4>Novo Mundo</h4>
+          <p>EUA, Austrália, Chile, Argentina, Brasil. Foco no grande público — etiquetas atraentes, vinhos macios, frutados, perfumados desde o primeiro gole.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="guide-section">
+      <p class="guide-section__title">Vinho fino vs. de mesa</p>
+      <div class="info-card">
+        <p>Tudo que vendemos no WHC é <strong>vinho fino</strong> — feito de uvas viníferas (Cabernet, Chardonnay, Malbec, Merlot...). Essas uvas dão concentração e equilíbrio naturais.</p>
+        <p>O vinho de mesa, comum em supermercado, é feito de uvas de consumo direto. Pra parecer vinho, costuma levar corante, açúcar, álcool. Não é a mesma coisa.</p>
+      </div>
+    </div>
+
+    <div class="guide-section">
+      <p class="guide-section__title">Harmonização sem mistério</p>
+      <div class="info-card">
+        <p><strong>O que é:</strong> encontrar pontos de equilíbrio entre as características da comida e da bebida. Quanto melhor eles interagem, melhor a experiência.</p>
+        <p><strong>Dica prática:</strong> a maioria das pessoas escolhe a bebida pela ocasião, não pela comida. Use isso a seu favor — o que combina com churrasco em família é diferente do que combina com jantar romântico.</p>
+        <p>Nas <strong>fichas técnicas</strong> de cada vinho, sugerimos ocasiões. Use como ponto de partida e adapte com o tempo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       COMISSÕES
+       ======================================== -->
+  <section class="view" data-view="comissoes">
+    <h1 class="view-title">Comissões</h1>
+    <p class="view-sub">Como você recebe, em qual modalidade e com quais dados emitir a NF.</p>
+
+    <div class="info-card">
+      <h3>Como funciona</h3>
+      <p>Sua atividade se enquadra como <strong>Promoção de Vendas</strong> — você apoia o cliente; a venda é feita pelo WHC. As comissões são pagas no mês seguinte, mediante solicitação.</p>
+      <p>Há <strong>duas datas mensais fixas</strong>: dias <strong>10</strong> ou <strong>25</strong>. Solicite o pagamento e emita a NF/RPA com até 2 dias úteis de antecedência.</p>
+      <p>O recebimento sai via TED ou direto no seu cartão WHC. Outra opção: usar o bônus como crédito pra comprar mais vinhos no escritório virtual.</p>
+    </div>
+
+    <div class="info-card">
+      <h3>Modalidades de NF</h3>
+      <table class="comm-table">
+        <thead>
+          <tr>
+            <th>Modalidade</th>
+            <th>Custo</th>
+            <th>Imposto</th>
+            <th>Limite</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>RPA</td>
+            <td>Zero</td>
+            <td>~27%</td>
+            <td>Sem limite</td>
+          </tr>
+          <tr>
+            <td>MEI</td>
+            <td>Zero</td>
+            <td>R$ 60 fixo</td>
+            <td>R$ 80 mil/ano</td>
+          </tr>
+          <tr>
+            <td>LTDA / EI</td>
+            <td>Abertura + contábil</td>
+            <td>~10%</td>
+            <td>Até R$ 3,6 mi</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="info-card">
+      <h3>Solicitação de pagamento</h3>
+      <p>No Escritório Virtual, vá em <strong>Minha Rede &gt; Resgate de Crédito</strong>.</p>
+      <ul>
+        <li><strong>Comissão de venda direta:</strong> mínimo de R$ 150.</li>
+        <li><strong>Comissão da rede:</strong> precisa estar com a mensalidade WHC em dia (todo dia 5).</li>
+        <li><strong>Valor Saque:</strong> cai no seu cartão WHC. Requer NF/RPA.</li>
+        <li><strong>Valor Compras Futuras:</strong> crédito pra comprar vinhos. Não pode pagar mensalidade.</li>
+      </ul>
+    </div>
+
+    <div class="info-card">
+      <h3>Dados pra emitir a NF</h3>
+      <p>Use no campo <strong>Tomador</strong>. Na descrição, código <strong>02496</strong> — Promoção de vendas e materiais publicitários.</p>
+      <div class="tomador">
+        <strong>Razão Social:</strong> WINEHOUSE COMERCIAL LTDA.<br>
+        <strong>CNPJ:</strong> 03.756.941/0001-48<br>
+        <strong>Inscrição Municipal:</strong> 2.897.195-7<br>
+        <strong>Endereço:</strong> Rua Bandeira Paulista, 726 — Loja Térrea — Itaim Bibi — SP — 04532-002
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================
+     TOAST
+     ============================================================ -->
+<div class="toast" id="toast">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+    <polyline points="20 6 9 17 4 12"/>
+  </svg>
+  <span id="toastText">Copiado!</span>
+</div>
+
+<script>
+  const ASSETS = {"images": {"home": "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"}, "logos": {"white_sm": "iVBORw0KGgoAAAANSUhEUgAAACoAAABkCAYAAADwkaJHAAACkElEQVR42u2ZsWsUQRSHv7e5JAYRRdFgIaKFHOkUY7BRBBsL0cbK1sq0gn+BjZ2CVnZ24t9gkdLCQtRCEItgIWhCCJpEcvezuDdkiFFyyWV3TN4Hx9ztsbffvZk3O28WgiAIgiAIgiAIgiAIgiAIgiAIgiAIgm0haUjSoa2cW9UoaUAXOClpuFhRwMxMwChwKpMvTlTezgHn+71+VWM4k+gsMCGpZWadEiOKpCEzWwEOAmf66f6q5sRPUovAVD8OdYsmvgMX1skXJZrG6bfU9dmxIiM6D5zwJOuULLrfE4rNJlRTyXQEaJV6Z8qjdxrobDDHFiPadamLwGcXL2t6kmRm1pV0ADgLzDScJ38VbUkySbfVYzLdrYpbi3r7QdKbfrq9Tslhb+94NKeKi2YmOeGSD4qSlFRJavn7tqQFSS+yksTqTpAhf1XetvKxJ+m6pGVJL7M/YCV1+TlJz727n25X0rbSpf72MnAVeA18AX4CR4FJ4BpwyW+T983soZ+nzdyFBjZxe2RGJD3SGl39yXQ+hzbVteZtku247LJ/fpJnfZNj0LLkeeuSv7z9JGms9uz+V9Z7e9OjuOLt3fz7EkTNX2OSZl1yQdJ4GsuDuta2fsgz2MxsCXjvhz+a2Vf/vluE6LopLkmt7kTv7cTqxf4XUUI0REM0REN0d4qmFftIRHSvilrxol5urK59HHz5UQ1AsPIF9DE/PJoW1E2XHvmOSKpEb3lRt+pVaNuPj6RNh0aLPJedlrToFeiyy874hm0zCSDpODAOTABXgBu+O7IRc8Bj4JXvpMyb2XxdoveANnCY3uPsJeCHj/X8t7rAGLCP3jOlOeCdmT3zLXKxW+k3onnkNnOusla7OpLBnuc3md0MRu7AaLIAAAAASUVORK5CYII=", "white_md": "iVBORw0KGgoAAAANSUhEUgAAAEwAAAC0CAYAAAA+VspfAAAE00lEQVR42u2dzWtcVRyG3zMzSZBI0ZhYa7RV2oJgpAiCVNwIVhFFEMGdCylURVfiUv0HBJeKVPcu1IXdlK5EEUTED9T40SJYFIwtqG3VmGbmcTG/a05uZm6izKTJnfeBy8l85Gbm4T1f9557IxljjDHGGGOMMcYYY4wxxhhjjDHGGGOMMcYYY4wxxhhjjDHGGGOMMcYYY4wxxhhjjDHGGGOMMcYYY4wxGweYAMaH/XcaNXI2JmlvyEsWVp2ulFK6IGkPMJFSwsI29j06kg4ACWhYWH86UZ6SdKcTtg6ZoNOS9gFTKaWOhVW3Y62U0rKki5LuiueaFlbhLMpPJN3vgdb6CWtEeSvwHTAxjCFGHRP2taQJSQeH8R1rIyylBNBIKS1KWpR0d/GShVV4i/ILSfeUhhwWViHsK0lzwI6UUmeQ7VjdhBWclXSZpBsGXS3rJqxo+H+K8vZBf8+6JuyPKPd54LqxhP0a5d5BN/x1TdjfpYRhYdW95FVRTsYck0H1lHVN2GQPiU5YRcJ2DmPQWueETQ1rx3XtJfdnj9vFXNPC1lJUwQNR/uKpUb9odY9UAFyTTYm+8Ui/osGPJN0maSaem/dcsspYt526L2u/3htWb7ndq2OKchL4AegA88B4nKN0wkoUZ4cekLQ7quDbKaUlSc1hnqfclukCGlF+GOk6D9xYdAa2tFpYK8qHWeGleK5pQ73TNQl8C7SBBWDnoNuuuggbi/LlLF2POF3VVfHRaLcAXs1fM2uTdQj4M2S9G6sQG66K2fQnS9aDwO8h62Ng2r3ialnN7OcjwF8h63Ng1u3WSi+Yi5oBXs8a+I+AmVrKKqpTNshMFe9rlkQ1gcdi2lNwDNhRy2rYr9fK5fRKCDANPA58ymqOZm1Zo25VKgG7gOeBJ4Bb4phVv9/ZDTwUVW8hk3QxyufyfW/6EZHNkBYH9g5KelPStZLOSPpR0jl110GclbRH3eNYN2n1WZ/lOFQzJulISulopLFT20l1tjpwF/AZ69OORLWzZB3Ox2AjMywArgdOxeh8CVgubZ0e1fCFkRzBZw31HHAuEtSuSBnAsSJZIzmCz6QdDiHLfWR1gDNRjdNIj+Azacf7SCseP+3JtNYsES+3W0VVPA1c7sn0WmknSqkqj7e2VLouZbtQJOeNwmFszRh7vRWv+xRZKWH7syMPRcrms3YuOWEriZK6C3h/i5+LNH2ZUloGttwpsq3QVbe1dknllp3y+OikhVmYhVmYhRkLszALszALMxZmYRZmYRZmYcbCLGyEhU1IalnYf/sMycJcJY2FWZiFWZiFDYdkYf1p9fgc7a266vBSCmuGlDlJV6i71Kn4PDOxzMl3A5D+veylWDD3TraYrhPbBeC6WN/asKiVx8+WFgLnqxBfjPeMj8yi4Oyq/1bpcr4rgVdKySroZJfMFBe8F/uo350C4lK+Vp/L+a4GngRO9kgWJWkdYBF4qiwp9l9sm1pl07DlSZqVdIekQ5LujcdS906YVVfREp1AU9L7kl6TdCKl9HOtxjvAMyFoWtLNUQ6Sk5K+V/ffWSxIOp5S+iDuHzb0JerDOHA3Jem8uiuj5yUtxVYMY/5PFWpHOabuPabHYz+zWrlXmBmJKUi0W5vZk3U2oyoaY4wxxhizrfgHl87WTwFE5uQAAAAASUVORK5CYII=", "black_sm": "iVBORw0KGgoAAAANSUhEUgAAACoAAABkCAYAAADwkaJHAAADRklEQVR42u2YP4gkRRSHf+9Vz+wOcox0Ve9iIKLCsS4H4nF6miiCiYF/EiNTM83NxMREMBG84BATs8MDMzExODAxuEgNZOEC54LdtXdZRdc9u+pnsD1LswjSPbN9fXfvS4Yppqa/eVX15r0CDMMwDMMwDMMwDMMwDMMwDMMwDMMwjEVx0+n04S4TtUdJAZDG4/FjAEZDF2WMcSWE8HhjbHCiBADn3B7JS22f37vodDr9FcAmgAxAHKIoALitra0jEZnmeX6+zfL3LTqX+sM5d7mNQ9+ix3uALEk+N+SIEgBU9TcA55tj/0d2NyKaUtoH8Gj9Ng526UXkIQDT/9i7wzpMKSUvIq1WU+9OQOUJkvH03h2SaKqlXhCRW0NNTwIgee/PicgzAG4MVdTVsq+r6grJa23SE3oWRQjhZ+/9zbaB6iuPjgD8E0J4R1Wfqqrq+bZlXl+SyPN8sygKeu8/akZ4COh8xbz3G0VRHHjvr53ar72R1Q91tZirx072nvf+taIo/g4hfNX4AcNZ8hDCxRDCl2trawwhXFlUUjouKbz3L6nqKymlHwDcJvmXqhYknxWRVwG8qKpZjPH9siw/ruexazrqcuoJQNbX17/f3t5+0zn3dUoJIkI55uSDMcb3yrL8rNF2cKHc1kV2d3c3HR4efrO6upqr6uWGxB0RyUheKcvyw/rUV8tqDbrOVQASQrgpIhdIViKSpZRuTSaTC7PZ7E7j/33hFLJItS4AKpIfABCS87FPZrPZ4byXX1auW4QIQCaTybckZ6o6Jvm7c+76vAhZZlJetAeSOno/1Qfpl52dne1GWTcI0ZN9TnIuVeEMOIsyT+4VUZioiZqoiZro/SnK+kJpbBF9UEXlXhCVRnnHs5DWJQjqcTnKtbouXTkLWe0o5hqtdpXn+Vuq+nRKKYrIpvd+o67ux41LB+lTlLVArJfaFUXxrqp+QbICUNV381e99+cANLtQ9nYAQgiPiMh6SmkTwMsA3siyrCCJ4wa0/lIRpJT2AHwK4DtVvX10dLR/cHCw31W01U0JybdFZENEcpIrInIjxvjn6Tulun+akLwkIk+S3BuNRj8C+HyZLfQgkQ57WlrMZeOV93UkjQeefwH+RBKglMAgxQAAAABJRU5ErkJggg=="}};
+
+  // Apply assets
+  document.getElementById('logoZahil').src = `data:image/png;base64,${ASSETS.logos.white_md}`.replace('white_md', 'black_sm');
+  // Use black version on white header
+  document.getElementById('logoZahil').src = `data:image/png;base64,${ASSETS.logos.black_sm}`;
+  document.getElementById('homeHero').style.backgroundImage = `url('data:image/jpeg;base64,${ASSETS.images.home}')`;
+
+  // ===========================================================
+  // VIEW NAMES
+  // ===========================================================
+  const VIEW_TITLES = {
+    home: '',
+    objecoes: 'Régua de Objeções',
+    campanha: 'Campanha 40 Anos',
+    mensagens: 'Mensagens prontas',
+    sondagem: 'Sondagem',
+    metodo: 'Vender em 6 passos',
+    dicas: 'Dicas de venda',
+    vinhos: 'Sobre vinhos',
+    comissoes: 'Comissões',
+  };
+
+  // ===========================================================
+  // OBJECTIONS DATA
+  // ===========================================================
+  const OBJECTIONS = [
+    {
+      id: 1,
+      tag: 'silencio',
+      tagLabel: 'Silêncio',
+      quote: 'Não respondeu a primeira mensagem',
+      response: `Bom dia [nome], você pode confirmar se recebeu minha mensagem anterior, por favor? Eu gostaria de entender suas preferências quando quer tomar vinho pra te ajudar a encontrar boas oportunidades — você topa? Também tenho conteúdos interessantes e acesso a oficinas e eventos online. Espero notícias suas e fico à disposição.`,
+    },
+    {
+      id: 2,
+      tag: 'postura',
+      tagLabel: 'Postura',
+      quote: 'Não quer manter contato ou não bebe',
+      response: `Obrigado pelo retorno. Estou começando esse negócio no mundo do vinho, que é muito importante pra mim. Vou me esforçar pra trazer sempre o melhor conteúdo e indicações. Se você conhecer pessoas que consomem vinho e puder me indicar, ajudaria muito nesse início. Muito obrigado!`,
+    },
+    {
+      id: 3,
+      tag: 'preco',
+      tagLabel: 'Preço',
+      quote: 'Tá caro',
+      response: `Realmente os vinhos que sugeri não são os mais baratos do mercado — qualidade e procedência são exclusivas, com curadoria de grandes especialistas. De qualquer forma, vou ficar atento pra dividir promoções ou opções com valor mais acessível com você. Me diga: qual valor você acha adequado pra um vinho de alta qualidade?`,
+    },
+    {
+      id: 4,
+      tag: 'logistica',
+      tagLabel: 'Logística',
+      quote: 'Minha adega já está cheia',
+      response: `Que bom que está com a adega cheia! Peço, por favor, que quando for fazer a próxima compra leve essa lista em consideração. Posso entrar em contato em 15 ou 20 dias pra te apresentar novidades — o que acha?`,
+    },
+    {
+      id: 5,
+      tag: 'tempo',
+      tagLabel: 'Prazos',
+      quote: 'Quanto tempo demora a entrega?',
+      response: `Em média, em São Paulo capital a entrega sai em até 2 dias úteis após a confirmação do pagamento. Esse prazo funciona pra você? Pra emergências temos a entrega expressa — o valor é um pouco maior. Quer que eu consulte?`,
+    },
+    {
+      id: 6,
+      tag: 'concorrencia',
+      tagLabel: 'Concorrência',
+      quote: 'Já compro de outro fornecedor',
+      response: `Entendo perfeitamente. De qualquer forma, peço que considere minha loja virtual como uma nova opção na próxima compra. Garanto que tenho vinhos exclusivos que você não encontra em nenhum outro lugar ;)`,
+    },
+    {
+      id: 7,
+      tag: 'logistica',
+      tagLabel: 'Logística',
+      quote: 'Quero comprar de você, não pelo site',
+      response: `Tranquilo! Faço o seguinte: encomendo aqui e, assim que chegar, levo pessoalmente até você. Você prefere fazer um TED ou pagar em dinheiro no dia?`,
+    },
+    {
+      id: 8,
+      tag: 'duvida',
+      tagLabel: 'Dúvida',
+      quote: 'Vou pensar e te aviso',
+      response: `Claro, sem pressão nenhuma! Vou aproveitar e te mandar a ficha técnica desses vinhos que comentei — assim você pensa com a informação na mão. Posso te chamar daqui uns dias só pra saber o que achou, ou prefere que eu te avise quando aparecer alguma novidade do seu estilo?`,
+    },
+    {
+      id: 9,
+      tag: 'duvida',
+      tagLabel: 'Dúvida',
+      quote: 'Não entendo nada de vinho, vou escolher errado',
+      response: `Tranquilo, é justamente pra isso que estou aqui. Você não precisa entender — é só me contar a ocasião e o que costuma agradar, e eu trago 2 ou 3 opções que façam sentido. Bora começar simples: pra que momento você está pensando? (jantar em casa, presente, almoço de domingo...)`,
+    },
+    {
+      id: 10,
+      tag: 'duvida',
+      tagLabel: 'Dúvida',
+      quote: 'E se eu não gostar do vinho?',
+      response: `É uma preocupação justa, vinho é gosto pessoal mesmo. Por isso a sondagem antes é tão importante: quanto melhor eu entendo o que você costuma curtir, mais certeira fica a sugestão. Pra primeira compra costumo indicar algo dentro do estilo que você já gosta — me conta: qual foi o último vinho que você tomou e curtiu?`,
+    },
+    {
+      id: 11,
+      tag: 'preco',
+      tagLabel: 'Preço',
+      quote: 'Tem desconto? Faz por menos?',
+      response: `Os preços que te passo já são os do clube, com curadoria especializada inclusa. De vez em quando rolam promoções pontuais — me deixa te avisar quando aparecer algo do seu perfil, beleza? Tem algum vinho específico que te interessou? Posso ficar de olho em alguma ação pra ele.`,
+    },
+  ];
+
+  // ===========================================================
+  // RENDER OBJECTIONS
+  // ===========================================================
+  // Normaliza string: lowercase + remove acentos
+  // Assim "ta caro" encontra "Tá caro", "preco" encontra "Preço", etc.
+  function norm(s) {
+    return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+
+  function renderObjections(filter = 'all', search = '') {
+    const list = document.getElementById('objList');
+    let filtered = OBJECTIONS;
+
+    if (filter !== 'all') {
+      filtered = filtered.filter(o => o.tag === filter);
+    }
+    if (search) {
+      const s = norm(search);
+      filtered = filtered.filter(o =>
+        norm(o.quote).includes(s) ||
+        norm(o.response).includes(s) ||
+        norm(o.tagLabel).includes(s)
+      );
+    }
+
+    if (filtered.length === 0) {
+      list.innerHTML = `
+        <div class="empty-state">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="11" cy="11" r="7"/><line x1="20" y1="20" x2="16.5" y2="16.5"/>
+          </svg>
+          <p>Nada encontrado. Tente outro termo ou filtro.</p>
+        </div>`;
+      return;
+    }
+
+    list.innerHTML = filtered.map(o => `
+      <div class="objection" data-id="${o.id}">
+        <button class="objection__header" onclick="toggleObjection(${o.id})">
+          <span class="objection__tag tag--${o.tag}">${o.tagLabel}</span>
+          <span class="objection__quote">${o.quote}</span>
+          <svg class="objection__chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="objection__body"><div class="objection__body-inner">
+          <p class="objection__label">Resposta sugerida</p>
+          <div class="objection__response" id="resp-${o.id}">${o.response}</div>
+          <div class="objection__actions">
+            <button class="btn-action" onclick="copyObjection(${o.id})">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              <span>Copiar resposta</span>
+            </button>
+          </div>
+        </div></div>
+      </div>
+    `).join('');
+
+    // Update filter counts
+    updateFilterCounts();
+  }
+
+  function updateFilterCounts() {
+    document.querySelectorAll('.filter-chip').forEach(chip => {
+      const filter = chip.dataset.filter;
+      const count = filter === 'all'
+        ? OBJECTIONS.length
+        : OBJECTIONS.filter(o => o.tag === filter).length;
+      const countEl = chip.querySelector('.filter-chip__count');
+      if (countEl) countEl.textContent = count;
+    });
+  }
+
+  function toggleObjection(id) {
+    const el = document.querySelector(`.objection[data-id="${id}"]`);
+    if (el) el.classList.toggle('open');
+  }
+
+  function copyObjection(id) {
+    const obj = OBJECTIONS.find(o => o.id === id);
+    if (!obj) return;
+    copyText(obj.response);
+  }
+
+  // ===========================================================
+  // FILTERS
+  // ===========================================================
+  let currentFilter = 'all';
+  let currentSearch = '';
+
+  document.getElementById('objFilters').addEventListener('click', (e) => {
+    const chip = e.target.closest('.filter-chip');
+    if (!chip) return;
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    currentFilter = chip.dataset.filter;
+    renderObjections(currentFilter, currentSearch);
+  });
+
+  document.getElementById('objSearch').addEventListener('input', (e) => {
+    currentSearch = e.target.value.trim();
+    renderObjections(currentFilter, currentSearch);
+  });
+
+  // ===========================================================
+  // GLOBAL SEARCH (na home)
+  // ===========================================================
+  document.getElementById('globalSearch').addEventListener('input', (e) => {
+    const v = e.target.value.trim().toLowerCase();
+    if (!v) return;
+    // Detecta intenção e redireciona
+    if (v.match(/objec|caro|preco|preço|silenc|adega|fornecedor|entrega/i)) {
+      goToView('objecoes');
+      const objSearch = document.getElementById('objSearch');
+      objSearch.value = e.target.value;
+      currentSearch = e.target.value.trim();
+      renderObjections(currentFilter, currentSearch);
+      e.target.value = '';
+    }
+  });
+
+  document.getElementById('globalSearch').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const v = e.target.value.trim().toLowerCase();
+      if (v.match(/mensag|whats|texto/i)) goToView('mensagens');
+      else if (v.match(/sonda|pergunt/i)) goToView('sondagem');
+      else if (v.match(/passo|metod|método|vender/i)) goToView('metodo');
+      else if (v.match(/vinho|harmoniz|tinto|branco|uva/i)) goToView('vinhos');
+      else if (v.match(/comiss|paga|nf|rpa|mei/i)) goToView('comissoes');
+      else { goToView('objecoes'); document.getElementById('objSearch').value = e.target.value; renderObjections(currentFilter, e.target.value.trim()); }
+      e.target.value = '';
+    }
+  });
+
+  // ===========================================================
+  // TABS (mensagens)
+  // ===========================================================
+  document.getElementById('msgTabs').addEventListener('click', (e) => {
+    const tab = e.target.closest('.tab');
+    if (!tab) return;
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    tab.classList.add('active');
+    document.querySelector(`.tab-content[data-tab-content="${tab.dataset.tab}"]`).classList.add('active');
+  });
+
+  // ===========================================================
+  // STEP CARDS (método)
+  // ===========================================================
+  document.querySelectorAll('.step-card__header').forEach(h => {
+    h.addEventListener('click', () => h.parentElement.classList.toggle('open'));
+  });
+
+  // Tip cards (dicas) accordion
+  document.querySelectorAll('.tip-card__header').forEach(h => {
+    h.addEventListener('click', () => h.parentElement.classList.toggle('open'));
+  });
+
+  // ===========================================================
+  // COPY (mensagens)
+  // ===========================================================
+  document.querySelectorAll('[data-copy]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.dataset.copy;
+      const el = document.getElementById(targetId);
+      if (!el) return;
+      // Pega texto sem HTML, mas mantém quebras de linha
+      const text = el.innerText || el.textContent;
+      copyText(text);
+    });
+  });
+
+  // ===========================================================
+  // COPY TEXT + TOAST
+  // ===========================================================
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => showToast('Copiado!')).catch(() => fallbackCopy(text));
+    } else {
+      fallbackCopy(text);
+    }
+  }
+  function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = 0;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); showToast('Copiado!'); } catch (e) { showToast('Não foi possível copiar'); }
+    document.body.removeChild(ta);
+  }
+  let toastTimer;
+  function showToast(text) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toastText').textContent = text;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+  }
+
+  // ===========================================================
+  // VIEW NAVIGATION
+  // ===========================================================
+  function goToView(view) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    const target = document.querySelector(`.view[data-view="${view}"]`);
+    if (target) target.classList.add('active');
+
+    const title = VIEW_TITLES[view] || '';
+    if (view === 'home') {
+      document.getElementById('btnBack').classList.add('hidden');
+      document.getElementById('headerTitle').style.display = 'none';
+      document.getElementById('headerBrand').style.display = 'flex';
+    } else {
+      document.getElementById('btnBack').classList.remove('hidden');
+      document.getElementById('headerTitle').textContent = title;
+      document.getElementById('headerTitle').style.display = 'block';
+      document.getElementById('headerBrand').style.display = 'none';
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  function goHome() { goToView('home'); }
+
+  // Initial render
+  renderObjections();
+</script>
+
+</body>
+</html>
